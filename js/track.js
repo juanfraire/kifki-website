@@ -15,7 +15,7 @@
      workers.dev, poné acá la base, sin barra final. Ej:
      const BASE = "https://kifki-analytics.tu-cuenta.workers.dev";
   */
-  const BASE = "";
+  const BASE = "https://kifki-analytics.kifki.workers.dev";
 
   // No registrar el propio panel de administración.
   if (/\/admin(\.html)?$/i.test(location.pathname)) return;

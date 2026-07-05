@@ -9,7 +9,7 @@ compatibility_date = "2026-01-01"
 #   npx wrangler kv namespace create KIFKI_HITS
 # Copiá el id que devuelve y reemplazá "PEGAR_ID_AQUI".
 kv_namespaces = [
-  { binding = "KIFKI_HITS", id = "PEGAR_ID_AQUI" }
+  { binding = "KIFKI_HITS", id = "1e8172c142264192bf10b601f5680c4f" }
 ]
 
 # --- Token del panel (NO lo pongas en texto plano acá) ---
