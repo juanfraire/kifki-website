@@ -17,6 +17,32 @@
 
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Albert Sans", system-ui, -apple-system, sans-serif;
+  --font-script: "Dancing Script", "Segoe Script", cursive;   /* marca "Kifki" (script del logo) */
+  --font-hand: "Patrick Hand", "Comic Sans MS", cursive;      /* títulos de sección */
+  --font-brush: "Caveat Brush", "Bradley Hand", cursive;      /* palabras acento */
+}
+
+/* ---------- Fuentes de marca (self-host, licencia OFL) ---------- */
+@font-face {
+  font-family: "Dancing Script";
+  src: url("../fonts/DancingScript-VariableFont.ttf") format("truetype-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Patrick Hand";
+  src: url("../fonts/PatrickHand-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Caveat Brush";
+  src: url("../fonts/CaveatBrush-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -83,6 +109,14 @@ em { font-style: italic; }
   font-size: 1.3rem;
 }
 
+.head-brand span {
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
 .head-brand img { display: block; }
 
 .head-mark {
@@ -143,8 +177,11 @@ em { font-style: italic; }
 }
 
 .hero-line em {
+  font-family: var(--font-brush);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.14em;
   color: var(--amarillo-2);
-  font-weight: 900;
 }
 
 .logo-mount {
@@ -273,8 +310,8 @@ em { font-style: italic; }
 }
 
 .section-title {
-  font-family: var(--font-display);
-  font-weight: 900;
+  font-family: var(--font-hand);
+  font-weight: 400;
   font-size: clamp(2.2rem, 6vw, 4rem);
   color: var(--azul);
   text-align: center;
@@ -325,6 +362,14 @@ em { font-style: italic; }
 }
 
 .card p { font-size: 0.98rem; }
+
+.card p em {
+  font-family: var(--font-brush);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.12em;
+  color: var(--azul);
+}
 
 .blob {
   position: absolute;
@@ -471,6 +516,13 @@ em { font-style: italic; }
   text-align: center;
   padding: 2rem 1.5rem;
   font-size: 0.9rem;
+}
+
+.foot-brand {
+  font-family: var(--font-script);
+  font-weight: 700;
+  font-size: 1.35em;
+  color: color-mix(in srgb, var(--crema) 92%, transparent);
 }
 
 /* ---------- Accesibilidad: menos movimiento ---------- */

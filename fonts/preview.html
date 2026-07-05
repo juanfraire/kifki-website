@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kifki · fuentes libres (Google Fonts) — comparativa</title>
+<style>
+  /* ---- Exacta ---- */
+  @font-face{ font-family:"SueEllen"; src:url("SueEllenFrancisco-Regular.ttf"); }
+  /* ---- True North (script del logotipo "Kifki") ---- */
+  @font-face{ font-family:"DancingScript"; src:url("DancingScript-VariableFont.ttf"); font-weight:400 700; }
+  @font-face{ font-family:"Pacifico"; src:url("Pacifico-Regular.ttf"); }
+  /* ---- Handyman (manuscrita redondeada) ---- */
+  @font-face{ font-family:"PatrickHand"; src:url("PatrickHand-Regular.ttf"); }
+  @font-face{ font-family:"Shantell"; src:url("ShantellSans-SemiBold.woff2"); }
+  /* ---- Handy Casual (brush casual) ---- */
+  @font-face{ font-family:"Yellowtail"; src:url("Yellowtail-Regular.woff2"); }
+  @font-face{ font-family:"CaveatBrush"; src:url("CaveatBrush-Regular.ttf"); }
+
+  :root{ --blue:#294a91; --yellow:#ffb938; --cream:#faf5ec; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--cream); color:var(--blue);
+        font-family:system-ui,-apple-system,sans-serif; padding:40px 24px 80px; }
+  .wrap{ max-width:900px; margin:0 auto; }
+  h1{ font-size:28px; margin:0 0 6px; }
+  .lead{ opacity:.75; margin:0 0 40px; max-width:640px; line-height:1.5; }
+  .card{ background:#fff; border-radius:18px; padding:26px 30px; margin:0 0 26px;
+         box-shadow:0 8px 30px rgba(41,74,145,.08); }
+  .tag{ display:inline-block; font-size:12px; font-weight:700; letter-spacing:.06em;
+        text-transform:uppercase; background:var(--yellow); color:var(--blue);
+        padding:4px 10px; border-radius:999px; margin-bottom:4px; }
+  .meta{ font-size:14px; opacity:.7; margin:6px 0 18px; }
+  .badge{ font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px;
+          background:var(--blue); color:#fff; margin-left:6px; }
+  .badge.alt{ background:#c9d3ea; color:var(--blue); }
+  .sample{ margin:14px 0; line-height:1.1; }
+  .big{ font-size:64px; }
+  .mid{ font-size:34px; }
+  .row{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .lbl{ font-size:12px; opacity:.5; width:110px; flex:none; }
+  hr{ border:none; border-top:1px dashed #dfd6c4; margin:34px 0; }
+  @media(max-width:600px){ .big{font-size:44px;} .mid{font-size:26px;} .lbl{width:100%;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kifki · fuentes libres para la web</h1>
+  <p class="lead">Las 3 fuentes comerciales de Canva no se pueden embeber legalmente en el sitio.
+  Estas son alternativas <strong>gratuitas de Google Fonts (licencia OFL/Apache)</strong>, listas para usar.
+  Compará y elegí; después las conecto en el CSS del sitio.</p>
+
+  <div class="card">
+    <span class="tag">Sue Ellen Francisco</span>
+    <div class="meta">✔ Es la fuente real (Google Font gratuita). Idéntica a la de Canva.</div>
+    <div class="sample big" style="font-family:SueEllen">Libros que dejan huella</div>
+    <div class="sample mid" style="font-family:SueEllen">Kifki · Literatura Infantil</div>
+  </div>
+
+  <hr>
+
+  <div class="card">
+    <span class="tag">True North</span> — script del logotipo <b>“Kifki”</b>
+    <div class="meta">Script monolineal con bucles. Candidatas:</div>
+    <div class="row"><span class="lbl">Dancing Script<span class="badge">recom.</span></span>
+      <div class="sample big" style="font-family:DancingScript;font-weight:700">Kifki</div></div>
+    <div class="row"><span class="lbl">Pacifico<span class="badge alt">alt</span></span>
+      <div class="sample big" style="font-family:Pacifico">Kifki</div></div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Handyman</span> — manuscrita redondeada (tipo “Literatura Infantil”)
+    <div class="meta">Letra de imprenta amistosa. Candidatas:</div>
+    <div class="row"><span class="lbl">Patrick Hand<span class="badge">recom.</span></span>
+      <div class="sample mid" style="font-family:PatrickHand">Literatura Infantil · para infancias y grandes</div></div>
+    <div class="row"><span class="lbl">Shantell Sans<span class="badge alt">alt</span></span>
+      <div class="sample mid" style="font-family:Shantell">Literatura Infantil · para infancias y grandes</div></div>
+  </div>
+
+  <div class="card">
+    <span class="tag">Handy Casual</span> — brush casual (títulos / acentos)
+    <div class="meta">Pincelada informal, inclinada. Candidatas:</div>
+    <div class="row"><span class="lbl">Yellowtail<span class="badge">recom.</span></span>
+      <div class="sample mid" style="font-family:Yellowtail">Historias con Papá · Asesoramiento lector</div></div>
+    <div class="row"><span class="lbl">Caveat Brush<span class="badge alt">alt</span></span>
+      <div class="sample mid" style="font-family:CaveatBrush">Historias con Papá · Asesoramiento lector</div></div>
+  </div>
+
+</div>
+</body>
+</html>
