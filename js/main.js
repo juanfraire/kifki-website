@@ -286,13 +286,14 @@
 
   const huellasBox = document.getElementById("huellas");
   if (huellasBox) {
-    // caminata en diagonal, alternando pie izquierdo y derecho
+    // caminata que cruza la escena por abajo, sin pisar el texto
     const steps = [
-      { x: 4, y: 78, r: 38 }, { x: 12, y: 66, r: 22 },
-      { x: 20, y: 58, r: 34 }, { x: 28, y: 46, r: 18 },
-      { x: 37, y: 40, r: 30 }, { x: 46, y: 30, r: 14 },
-      { x: 56, y: 26, r: 26 }, { x: 65, y: 18, r: 10 },
-      { x: 75, y: 16, r: 22 }, { x: 84, y: 10, r: 8 },
+      { x: 3, y: 90, r: 60 }, { x: 10, y: 82, r: 45 },
+      { x: 17, y: 88, r: 65 }, { x: 25, y: 80, r: 50 },
+      { x: 33, y: 87, r: 70 }, { x: 42, y: 80, r: 55 },
+      { x: 52, y: 87, r: 75 }, { x: 62, y: 81, r: 60 },
+      { x: 72, y: 88, r: 80 }, { x: 82, y: 82, r: 65 },
+      { x: 91, y: 89, r: 85 },
     ];
     steps.forEach((st, i) => {
       const d = document.createElement("div");
