@@ -1,0 +1,470 @@
+/* ============================================================
+   Kifki · Literatura Infantil — landing
+   Paleta tomada del logo:
+   crema #FAF5EC · azul #294A91 · noche #111E3D
+   amarillo #FFB938 / #FFAD15
+   ============================================================ */
+
+:root {
+  --crema: #faf5ec;
+  --crema-osc: #f3ead9;
+  --azul: #294a91;
+  --noche: #111e3d;
+  --noche-2: #0c1730;
+  --amarillo: #ffb938;
+  --amarillo-2: #ffad15;
+  --tinta: #22315b;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Albert Sans", system-ui, -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: auto; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--crema);
+  color: var(--tinta);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Grano fílmico sutil sobre toda la página */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+em { font-style: italic; }
+
+/* ---------- Encabezado ---------- */
+
+.site-head {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem clamp(1rem, 4vw, 2.5rem);
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.site-head.is-solid {
+  background: color-mix(in srgb, var(--crema) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(41, 74, 145, 0.12);
+}
+
+.head-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--azul);
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: 1.3rem;
+}
+
+.head-brand img { display: block; }
+
+.head-cta {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--crema);
+  background: var(--azul);
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.head-cta:hover {
+  background: var(--amarillo);
+  color: var(--azul);
+  transform: translateY(-2px);
+}
+
+/* ---------- Escena 1 · Portada ---------- */
+
+.hero {
+  position: relative;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #fffdf7 0%, var(--crema) 55%, var(--crema-osc) 100%);
+}
+
+.hero-stage {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.hero-line {
+  position: absolute;
+  top: clamp(4.5rem, 12vh, 8rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+  color: var(--azul);
+  padding: 0 1rem;
+}
+
+.hero-line em {
+  color: var(--amarillo-2);
+  font-weight: 900;
+}
+
+.logo-mount {
+  width: min(78vw, 62vh, 540px);
+  aspect-ratio: 1;
+}
+
+.logo-mount svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: clamp(1.2rem, 5vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--azul);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.scroll-cue svg { animation: cue-bob 1.6s ease-in-out infinite; }
+
+@keyframes cue-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(7px); }
+}
+
+/* ---------- Escenas nocturnas (manifiesto y cita) ---------- */
+
+.manifiesto,
+.cita {
+  position: relative;
+  background:
+    radial-gradient(130% 100% at 50% 0%, #1a2a52 0%, var(--noche) 45%, var(--noche-2) 100%);
+  color: var(--crema);
+  overflow: hidden;
+}
+
+/* borde ondulado de transición crema → noche */
+.manifiesto::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 70px;
+  background: var(--crema);
+  clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+.stars { position: absolute; inset: 0; pointer-events: none; }
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--crema);
+  opacity: 0.7;
+  animation: twinkle 3.2s ease-in-out infinite;
+}
+
+.star--amarilla { background: var(--amarillo); }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+
+.manifiesto-inner {
+  position: relative;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(9rem, 22vh, 14rem) 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3.5rem, 10vh, 6rem);
+  text-align: center;
+}
+
+.mani-line {
+  font-family: var(--font-display);
+  font-weight: 450;
+  font-size: clamp(1.5rem, 3.6vw, 2.6rem);
+  line-height: 1.35;
+}
+
+.mani-line--accent {
+  font-weight: 650;
+  color: var(--amarillo);
+}
+
+/* ---------- Escena 3 · Qué hacemos ---------- */
+
+.hacemos {
+  position: relative;
+  background: var(--crema);
+  overflow: hidden;
+}
+
+.hacemos::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 70px;
+  background: var(--noche-2);
+  clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+.hacemos-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(7rem, 16vh, 10rem) 1.5rem clamp(5rem, 12vh, 8rem);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: var(--azul);
+  text-align: center;
+  margin-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+.title-dot { color: var(--amarillo-2); }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1.2rem, 3vw, 2rem);
+}
+
+.card {
+  background: #fffdf8;
+  border: 1.5px solid rgba(41, 74, 145, 0.14);
+  border-radius: 22px;
+  padding: 2.2rem 1.8rem;
+  box-shadow: 0 14px 34px -22px rgba(41, 74, 145, 0.35);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) rotate(-0.4deg);
+  box-shadow: 0 26px 48px -24px rgba(41, 74, 145, 0.45);
+}
+
+.card-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  color: var(--azul);
+  background: color-mix(in srgb, var(--amarillo) 28%, transparent);
+  border-radius: 16px;
+  margin-bottom: 1.3rem;
+}
+
+.card-icon svg { width: 32px; height: 32px; }
+
+.card h3 {
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: 1.35rem;
+  color: var(--azul);
+  margin-bottom: 0.5rem;
+}
+
+.card p { font-size: 0.98rem; }
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.blob--a {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, var(--amarillo) 0%, transparent 70%);
+  top: 8%; left: -120px;
+}
+
+.blob--b {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--azul) 30%, transparent) 0%, transparent 70%);
+  bottom: -60px; right: -140px;
+}
+
+/* ---------- Escena 4 · Cita ---------- */
+
+.cita::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 70px;
+  background: var(--crema);
+  clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+.cita-inner {
+  position: relative;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: clamp(9rem, 22vh, 13rem) 1.5rem;
+  text-align: center;
+}
+
+.cita blockquote p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 450;
+  font-size: clamp(1.7rem, 4.4vw, 3.1rem);
+  line-height: 1.35;
+}
+
+.cita blockquote .palabra {
+  display: inline-block;
+  white-space: pre;
+}
+
+.cita figcaption {
+  margin-top: 2.2rem;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amarillo);
+  font-weight: 500;
+}
+
+/* ---------- Escena 5 · Encontranos ---------- */
+
+.encontranos {
+  position: relative;
+  background: var(--crema);
+  overflow: hidden;
+}
+
+.encontranos::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 70px;
+  background: var(--noche-2);
+  clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+.encontranos-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: clamp(8rem, 18vh, 11rem) 1.5rem clamp(6rem, 14vh, 9rem);
+  text-align: center;
+}
+
+.encontranos-lugar {
+  font-size: 1rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--amarillo-2);
+  margin: -1.5rem 0 1.6rem;
+}
+
+.encontranos-texto {
+  font-size: 1.1rem;
+  margin-bottom: 2.6rem;
+}
+
+.btn-ig {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--crema);
+  background: var(--azul);
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  box-shadow: 0 16px 32px -16px rgba(41, 74, 145, 0.55);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-ig:hover {
+  background: var(--amarillo);
+  color: var(--azul);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 22px 40px -16px rgba(255, 173, 21, 0.6);
+}
+
+/* huellas del elefante que cruzan la escena */
+.huellas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.huella {
+  position: absolute;
+  width: clamp(30px, 4.5vw, 46px);
+  opacity: 0;
+  color: color-mix(in srgb, var(--azul) 32%, transparent);
+}
+
+/* ---------- Pie ---------- */
+
+.site-foot {
+  background: var(--noche-2);
+  color: color-mix(in srgb, var(--crema) 75%, transparent);
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* ---------- Accesibilidad: menos movimiento ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue svg, .star { animation: none; }
+  html { scroll-behavior: auto; }
+}
