@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Kifki">
+  <circle cx="50" cy="50" r="50" fill="#294a91"/>
+  <path d="M50 34 C39 26 26 25 16 29 L16 63 C26 59 39 60 50 68 Z" fill="#ffb938"/>
+  <path d="M50 34 C61 26 74 25 84 29 L84 63 C74 59 61 60 50 68 Z" fill="#faf5ec"/>
+  <path d="M50 34 L50 68" fill="none" stroke="#294a91" stroke-width="3" stroke-linecap="round"/>
+</svg>

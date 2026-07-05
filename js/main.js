@@ -37,19 +37,7 @@
      al animar su stroke-dashoffset, revela el dibujo real debajo.
      ============================================================ */
 
-  const GUIDES = [
-    // cola (garabato) y lomo hasta la oreja
-    { d: "M 117 182 Q 124 168 137 183 Q 131 194 123 188 Q 130 170 150 158 Q 162 151 174 148", w: 16 },
-    // pata trasera, panza y patas delanteras
-    { d: "M 137 176 L 139 238 L 145 246 L 159 246 L 161 224 Q 169 234 180 234 L 182 246 L 212 246 L 214 216", w: 20 },
-    // cabeza y oreja (rulo grande + espiral)
-    { d: "M 172 150 Q 198 135 216 142 Q 233 148 239 160", w: 16 },
-    { d: "M 209 147 A 26 26 0 1 0 195 194 Q 206 191 209 181 M 206 164 Q 215 168 212 178 Q 207 185 201 179", w: 15 },
-    // frente y cara
-    { d: "M 236 158 Q 240 172 236 186 Q 232 200 240 212", w: 14 },
-    // trompa alzada, bajada lateral y rulo final
-    { d: "M 239 166 Q 243 150 250 138 Q 256 124 264 121 Q 271 125 270 136 L 272 172 L 273 198 Q 273 218 258 225 Q 243 227 243 214 Q 245 204 254 208", w: 15 },
-  ];
+  const GUIDES = KIFKI_GUIDES; // definidos en js/guides.js (compartidos con el harness de cobertura)
 
   const logoState = { svg: null, tl: null };
 
@@ -146,7 +134,8 @@
     logoState.tl = tl;
 
     // 1 · el titular se desvanece mientras arranca el dibujo
-    tl.to("#heroLine", { opacity: 0, y: -40, letterSpacing: "0.06em", duration: 1.2 }, 0.2);
+    // (solo opacity/transform: animar letter-spacing fuerza reflow y parpadea)
+    tl.to("#heroLine", { opacity: 0, y: -40, duration: 1.2 }, 0.2);
     tl.to("#scrollCue", { opacity: 0, duration: 0.5 }, 0);
 
     // 2 · el contorno azul se dibuja trazo a trazo
@@ -171,28 +160,12 @@
     // 7 · aparece "Literatura Infantil"
     tl.to(tagline, { opacity: 1, y: 0, duration: 0.8 }, drawDur + 2.6);
 
-    // 8 · pequeña pausa final con el logo completo
-    tl.to({}, { duration: 1.0 });
+    // 8 · aleteo suave del libro, guiado por el propio scroll (reversible, sin saltos)
+    tl.to(book, { y: -5, rotation: 2.5, duration: 0.6, ease: "sine.inOut" }, drawDur + 2.9);
+    tl.to(book, { y: 0, rotation: 0, duration: 0.6, ease: "sine.inOut" }, drawDur + 3.5);
 
-    // el libro aletea suavemente una vez completo el logo
-    const flutter = gsap.to(book, {
-      y: -6,
-      rotation: 3,
-      duration: 1.6,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1,
-      paused: true,
-    });
-    ScrollTrigger.create({
-      trigger: "#hero",
-      start: "top top",
-      end: "+=320%",
-      onUpdate: (self) => {
-        if (self.progress > 0.97) flutter.play();
-        else { flutter.pause(0); }
-      },
-    });
+    // 9 · pequeña pausa final con el logo completo
+    tl.to({}, { duration: 1.0 });
   }
 
   fetch("assets/logo-layers.svg")

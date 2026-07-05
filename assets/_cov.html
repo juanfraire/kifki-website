@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{margin:0;background:#fff}div{width:750px;height:750px}
+#m svg :is(#body,#book,#wordmark,#tagline,#eye){display:none}</style></head>
+<body><div id="m"></div>
+<script src="../js/guides.js"></script>
+<script>
+fetch('logo-layers.svg').then(r=>r.text()).then(t=>{
+  const m=document.getElementById('m'); m.innerHTML=t;
+  const svg=m.querySelector('svg'); svg.setAttribute('width',750); svg.setAttribute('height',750);
+  const q=new URLSearchParams(location.search);
+  if(q.get('mask')!=='0'){
+    const defs=svg.querySelector('defs');
+    const NS='http://www.w3.org/2000/svg';
+    const mask=document.createElementNS(NS,'mask');
+    mask.setAttribute('id','mDraw'); mask.setAttribute('maskUnits','userSpaceOnUse');
+    mask.setAttribute('x',0);mask.setAttribute('y',0);mask.setAttribute('width',375);mask.setAttribute('height',375);
+    const bg=document.createElementNS(NS,'rect');
+    bg.setAttribute('width',375);bg.setAttribute('height',375);bg.setAttribute('fill','black');mask.appendChild(bg);
+    KIFKI_GUIDES.forEach(g=>{
+      const p=document.createElementNS(NS,'path');
+      p.setAttribute('d',g.d);p.setAttribute('fill','none');p.setAttribute('stroke','white');
+      p.setAttribute('stroke-width',g.w);p.setAttribute('stroke-linecap','round');p.setAttribute('stroke-linejoin','round');
+      mask.appendChild(p);
+    });
+    defs.appendChild(mask);
+    svg.querySelector('#contour').setAttribute('mask','url(#mDraw)');
+  }
+});
+</script></body></html>

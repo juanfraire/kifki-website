@@ -16,6 +16,8 @@ python3 -m http.server 8000
 
 Parámetros útiles para depurar: `?p=0.5` salta a la mitad de la animación del héroe (y desactiva el scroll suave); `?shot` solo desactiva el scroll suave.
 
+Los trazos guía de la máscara de dibujo viven en `js/guides.js` (compartidos entre la página y el harness de cobertura). Para verificar que cubren todo el contorno azul: abrir `assets/_cov.html` (máscara aplicada al 100 %) y `assets/_cov.html?mask=0` (contorno sin máscara); un diff de píxeles entre ambas capturas muestra lo que quede sin cubrir.
+
 ## Accesibilidad
 
 Con `prefers-reduced-motion: reduce` no hay pin ni scrubbing: el logo y las secciones se muestran en su estado final.

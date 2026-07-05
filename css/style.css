@@ -85,6 +85,14 @@ em { font-style: italic; }
 
 .head-brand img { display: block; }
 
+.head-mark {
+  border-radius: 50%;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--azul) 26%, transparent);
+  transition: transform 0.25s ease;
+}
+
+.head-brand:hover .head-mark { transform: rotate(-6deg) scale(1.06); }
+
 .head-cta {
   font-weight: 700;
   font-size: 0.9rem;
@@ -149,6 +157,9 @@ em { font-style: italic; }
   height: 100%;
   display: block;
   overflow: visible;
+  /* capa propia de composición: evita parpadeos al redibujar la máscara */
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .scroll-cue {
