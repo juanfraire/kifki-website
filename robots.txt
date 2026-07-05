@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mundokifki.com.ar/sitemap.xml
+Sitemap: https://kifki.ar/sitemap.xml
