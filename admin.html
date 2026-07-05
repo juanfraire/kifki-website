@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Kifki · Panel de accesos</title>
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <style>
+    :root{
+      --crema:#faf5ec; --azul:#294a91; --azul-cl:#5a7fd0;
+      --noche:#111e3d; --noche-2:#0c1730; --panel:#16244a;
+      --amarillo:#ffb938; --amarillo-2:#ffad15;
+      --line:rgba(255,255,255,.10); --muted:rgba(250,245,236,.62);
+      --font:"Albert Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background:radial-gradient(120% 80% at 50% 0%,#16274f,var(--noche) 55%,var(--noche-2));color:var(--crema);min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased}
+    a{color:var(--amarillo)}
+    .wrap{max-width:1180px;margin:0 auto;padding:clamp(1rem,3vw,2.4rem)}
+
+    header.top{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;justify-content:space-between;margin-bottom:1.6rem}
+    .brand{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.15rem}
+    .brand b{color:var(--amarillo)}
+    .brand small{color:var(--muted);font-weight:500}
+
+    .controls{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+    input,select,button{font-family:inherit;font-size:.9rem;border-radius:10px;border:1px solid var(--line);padding:.55rem .8rem}
+    input,select{background:var(--panel);color:var(--crema)}
+    input::placeholder{color:var(--muted)}
+    button{background:var(--amarillo);color:var(--noche);font-weight:700;border:none;cursor:pointer;transition:transform .15s ease,background .2s ease}
+    button:hover{transform:translateY(-1px);background:var(--amarillo-2)}
+    button.ghost{background:transparent;color:var(--crema);border:1px solid var(--line)}
+
+    .gate{max-width:30rem;margin:12vh auto 0;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:2rem}
+    .gate h1{font-size:1.3rem;margin-bottom:.4rem}
+    .gate p{color:var(--muted);font-size:.92rem;margin-bottom:1.2rem}
+    .gate label{display:block;font-size:.82rem;color:var(--muted);margin:.8rem 0 .3rem}
+    .gate input{width:100%}
+    .gate button{width:100%;margin-top:1.2rem;padding:.7rem}
+    .err{color:#ff8f6b;font-size:.86rem;margin-top:.8rem;min-height:1.1em}
+
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:.9rem;margin-bottom:1.4rem}
+    .kpi{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.1rem 1.2rem}
+    .kpi .n{font-size:2rem;font-weight:800;line-height:1;letter-spacing:-.02em}
+    .kpi .l{color:var(--muted);font-size:.8rem;margin-top:.4rem;text-transform:uppercase;letter-spacing:.06em}
+    .kpi.accent .n{color:var(--amarillo)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:1rem}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.2rem 1.3rem;overflow:hidden}
+    .card h2{font-size:.95rem;margin-bottom:1rem;display:flex;justify-content:space-between;align-items:baseline}
+    .card h2 span{color:var(--muted);font-weight:500;font-size:.78rem}
+
+    /* barras horizontales */
+    .bars{display:flex;flex-direction:column;gap:.55rem}
+    .bar{position:relative}
+    .bar .row{display:flex;justify-content:space-between;gap:.6rem;font-size:.86rem;margin-bottom:.22rem}
+    .bar .row .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .bar .row .val{color:var(--muted);font-variant-numeric:tabular-nums;flex:0 0 auto}
+    .bar .track{height:7px;background:rgba(255,255,255,.07);border-radius:6px;overflow:hidden}
+    .bar .fill{height:100%;background:linear-gradient(90deg,var(--azul-cl),var(--amarillo));border-radius:6px}
+    .empty{color:var(--muted);font-size:.86rem;padding:.4rem 0}
+
+    /* timeline */
+    .spark{display:flex;align-items:flex-end;gap:3px;height:120px;margin-top:.4rem}
+    .spark .col{flex:1;min-width:3px;background:linear-gradient(180deg,var(--amarillo),var(--azul-cl));border-radius:3px 3px 0 0;position:relative}
+    .spark .col:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--noche-2);border:1px solid var(--line);color:var(--crema);font-size:.7rem;white-space:nowrap;padding:.2rem .4rem;border-radius:6px;margin-bottom:4px;z-index:2}
+    .card.wide{grid-column:1/-1}
+
+    /* tabla */
+    .tablewrap{overflow-x:auto;margin-top:.2rem}
+    table{border-collapse:collapse;width:100%;font-size:.82rem}
+    th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);white-space:nowrap}
+    th{color:var(--muted);font-weight:600;position:sticky;top:0;background:var(--panel)}
+    td.ip{font-variant-numeric:tabular-nums}
+    .pill{display:inline-block;background:rgba(255,255,255,.08);border-radius:999px;padding:.08rem .5rem;font-size:.74rem}
+    .flag{font-size:.9rem}
+    .muted{color:var(--muted)}
+    .note{color:var(--muted);font-size:.8rem;margin-top:1.4rem;text-align:center}
+    .loading{opacity:.5}
+  </style>
+</head>
+<body>
+
+  <!-- Compuerta de token -->
+  <div class="wrap" id="gateWrap">
+    <div class="gate">
+      <h1>Panel de accesos · <b>Kifki</b></h1>
+      <p>Ingresá el token de administración para ver las estadísticas de visitas.</p>
+      <label for="base">Servidor (dejar vacío si el Worker corre en kifki.ar)</label>
+      <input id="base" placeholder="https://kifki-analytics.tu-cuenta.workers.dev" autocomplete="off">
+      <label for="token">Token</label>
+      <input id="token" type="password" placeholder="••••••••••" autocomplete="current-password">
+      <button id="enter">Entrar</button>
+      <div class="err" id="gateErr"></div>
+    </div>
+  </div>
+
+  <!-- Panel -->
+  <div class="wrap" id="panel" hidden>
+    <header class="top">
+      <div class="brand">Panel de accesos · <b>Kifki</b> <small id="subT"></small></div>
+      <div class="controls">
+        <select id="days">
+          <option value="0">Todo</option>
+          <option value="1">Hoy</option>
+          <option value="7" selected>7 días</option>
+          <option value="30">30 días</option>
+          <option value="90">90 días</option>
+        </select>
+        <button id="refresh">Actualizar</button>
+        <button class="ghost" id="logout">Salir</button>
+      </div>
+    </header>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="grid">
+      <div class="card wide">
+        <h2>Visitas por día <span id="tlRange"></span></h2>
+        <div class="spark" id="timeline"></div>
+      </div>
+
+      <div class="card"><h2>Fuentes <span>utm / referente</span></h2><div class="bars" id="sources"></div></div>
+      <div class="card"><h2>Referentes <span>de dónde llegan</span></h2><div class="bars" id="referrers"></div></div>
+      <div class="card"><h2>Países</h2><div class="bars" id="countries"></div></div>
+      <div class="card"><h2>Ciudades</h2><div class="bars" id="cities"></div></div>
+      <div class="card"><h2>Dispositivos</h2><div class="bars" id="devices"></div></div>
+      <div class="card"><h2>Páginas</h2><div class="bars" id="paths"></div></div>
+
+      <div class="card wide">
+        <h2>Últimas visitas <span id="recentCount"></span></h2>
+        <div class="tablewrap">
+          <table>
+            <thead><tr>
+              <th>Cuándo</th><th>IP</th><th>Ubicación</th><th>Fuente</th>
+              <th>Disp.</th><th>Red (ASN)</th><th>Página</th><th>Nuevo</th>
+            </tr></thead>
+            <tbody id="recent"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" id="foot"></p>
+  </div>
+
+  <script>
+  (function(){
+    "use strict";
+    var LS_T="kf_admin_token", LS_B="kf_admin_base";
+    var $=function(id){return document.getElementById(id)};
+
+    var base=(localStorage.getItem(LS_B)||"");
+    var token=(localStorage.getItem(LS_T)||"");
+    $("base").value=base; $("token").value=token;
+
+    function apiBase(){ return (($("base").value||"").replace(/\/+$/,"")); }
+
+    function enter(){
+      base=apiBase(); token=$("token").value.trim();
+      if(!token){ $("gateErr").textContent="Ingresá el token."; return; }
+      load(true);
+    }
+    $("enter").addEventListener("click",enter);
+    $("token").addEventListener("keydown",function(e){ if(e.key==="Enter") enter(); });
+    $("refresh").addEventListener("click",function(){ load(false); });
+    $("days").addEventListener("change",function(){ load(false); });
+    $("logout").addEventListener("click",function(){
+      localStorage.removeItem(LS_T);
+      $("panel").hidden=true; $("gateWrap").hidden=false; $("token").value="";
+    });
+
+    function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+    function flag(cc){ if(!cc||cc.length!==2) return "🏳️";
+      try{ return String.fromCodePoint.apply(null, cc.toUpperCase().split("").map(function(c){return 127397+c.charCodeAt(0)})); }
+      catch(e){ return cc; } }
+    function num(n){ return (n||0).toLocaleString("es-AR"); }
+    function ago(t){
+      var s=Math.max(0,(Date.now()-t)/1000);
+      if(s<60) return "hace "+Math.floor(s)+"s";
+      if(s<3600) return "hace "+Math.floor(s/60)+"m";
+      if(s<86400) return "hace "+Math.floor(s/3600)+"h";
+      return new Date(t).toLocaleString("es-AR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
+    }
+
+    function load(fromGate){
+      var b=apiBase(); var d=$("days").value;
+      var url=(b||"")+"/api/stats?days="+encodeURIComponent(d)+"&token="+encodeURIComponent(token);
+      $("panel").classList.add("loading");
+      fetch(url,{headers:{"Authorization":"Bearer "+token}})
+        .then(function(r){
+          if(r.status===401) throw new Error("Token inválido.");
+          if(!r.ok) throw new Error("Error "+r.status+" del servidor.");
+          return r.json();
+        })
+        .then(function(s){
+          if(!s.ok) throw new Error(s.error||"Respuesta inesperada.");
+          localStorage.setItem(LS_T,token); localStorage.setItem(LS_B,b);
+          $("gateWrap").hidden=true; $("panel").hidden=false;
+          render(s);
+        })
+        .catch(function(e){
+          if(fromGate || $("panel").hidden){ $("gateErr").textContent=e.message; }
+          else { $("foot").textContent="⚠️ "+e.message; }
+        })
+        .finally(function(){ $("panel").classList.remove("loading"); });
+    }
+
+    function render(s){
+      var dLbl=$("days").options[$("days").selectedIndex].text;
+      $("subT").textContent="· "+dLbl;
+      $("kpis").innerHTML=[
+        kpi(num(s.total),"Visitas",true),
+        kpi(num(s.uniqueIps),"IPs únicas"),
+        kpi(num(s.newVisitors),"Nuevos"),
+        kpi(num(s.returningVisitors),"Recurrentes"),
+        kpi(num((s.countries||[]).length),"Países"),
+        kpi(num((s.sources||[]).length),"Fuentes")
+      ].join("");
+
+      bars("sources",s.sources); bars("referrers",s.referrers);
+      bars("countries",s.countries,true); bars("cities",s.cities);
+      bars("devices",s.devices); bars("paths",s.paths);
+      timeline(s.timeline);
+      recent(s.recent);
+
+      $("recentCount").textContent=(s.recent||[]).length+" registros";
+      var msg="Mostrando "+num(s.scanned)+" visitas"+(s.capped?" (tope alcanzado)":"")+" · actualizado "+new Date().toLocaleTimeString("es-AR");
+      $("foot").textContent=msg;
+    }
+
+    function kpi(n,l,accent){
+      return '<div class="kpi'+(accent?" accent":"")+'"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';
+    }
+
+    function bars(id,arr,isCountry){
+      arr=arr||[]; var box=$(id);
+      if(!arr.length){ box.innerHTML='<div class="empty">Sin datos todavía.</div>'; return; }
+      var max=arr[0].count||1;
+      box.innerHTML=arr.map(function(x){
+        var lab=isCountry?(flag(x.label.slice(0,2))+" "+esc(x.label)):esc(x.label);
+        var w=Math.max(3,Math.round((x.count/max)*100));
+        return '<div class="bar"><div class="row"><span class="lab">'+lab+'</span>'+
+               '<span class="val">'+num(x.count)+'</span></div>'+
+               '<div class="track"><div class="fill" style="width:'+w+'%"></div></div></div>';
+      }).join("");
+    }
+
+    function timeline(tl){
+      tl=tl||[]; var box=$("timeline");
+      if(!tl.length){ box.innerHTML='<div class="empty">Sin datos todavía.</div>'; $("tlRange").textContent=""; return; }
+      var max=tl.reduce(function(m,x){return Math.max(m,x.count)},1);
+      box.innerHTML=tl.map(function(x){
+        var h=Math.max(3,Math.round((x.count/max)*100));
+        return '<div class="col" style="height:'+h+'%" data-t="'+x.day+": "+x.count+'"></div>';
+      }).join("");
+      $("tlRange").textContent=tl[0].day+" → "+tl[tl.length-1].day+" · máx "+max;
+    }
+
+    function recent(rows){
+      rows=rows||[]; var body=$("recent");
+      if(!rows.length){ body.innerHTML='<tr><td colspan="8" class="muted">Sin visitas registradas todavía.</td></tr>'; return; }
+      body.innerHTML=rows.map(function(h){
+        var loc=[h.city,h.region].filter(Boolean).join(", ");
+        var locCell='<span class="flag">'+flag(h.country)+'</span> '+esc(loc||h.country||"—");
+        var asn=h.asn?("AS"+h.asn+" "+esc(h.org||"")):"—";
+        return "<tr>"+
+          '<td class="muted">'+esc(ago(h.t))+"</td>"+
+          '<td class="ip">'+esc(h.ip||"—")+"</td>"+
+          "<td>"+locCell+"</td>"+
+          '<td><span class="pill">'+esc(h.source||"directo")+"</span></td>"+
+          "<td>"+esc(h.device||"—")+"</td>"+
+          '<td class="muted">'+asn+"</td>"+
+          '<td class="muted">'+esc(h.path||"/")+"</td>"+
+          "<td>"+(h.returning===1?'<span class="muted">no</span>':(h.returning===0?"sí":"—"))+"</td>"+
+        "</tr>";
+      }).join("");
+    }
+
+    // Autologin si ya hay token guardado.
+    if(token){ load(true); }
+  })();
+  </script>
+</body>
+</html>

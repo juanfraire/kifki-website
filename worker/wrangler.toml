@@ -1,0 +1,31 @@
+# Configuración del Worker de registro de accesos de Kifki.
+# Desplegar con:  npx wrangler deploy   (desde la carpeta worker/)
+
+name = "kifki-analytics"
+main = "kifki-analytics.js"
+compatibility_date = "2026-01-01"
+
+# --- Almacén KV (crear el namespace y pegar su id) ---
+#   npx wrangler kv namespace create KIFKI_HITS
+# Copiá el id que devuelve y reemplazá "PEGAR_ID_AQUI".
+kv_namespaces = [
+  { binding = "KIFKI_HITS", id = "PEGAR_ID_AQUI" }
+]
+
+# --- Token del panel (NO lo pongas en texto plano acá) ---
+# Guardalo como secreto:
+#   npx wrangler secret put ADMIN_TOKEN
+# (te lo pide por consola; ese mismo valor es el que cargás en /admin.html)
+
+# --- Rutas en el propio dominio (recomendado) ---
+# Requiere que kifki.ar esté proxeado por Cloudflare (nube naranja).
+# Así /collect y /api/* quedan en el mismo origen que el sitio y en
+# js/track.js podés dejar BASE = "".
+# routes = [
+#   { pattern = "kifki.ar/collect", zone_name = "kifki.ar" },
+#   { pattern = "kifki.ar/api/*",   zone_name = "kifki.ar" }
+# ]
+#
+# Si preferís no tocar el dominio, no definas rutas: el Worker queda en
+#   https://kifki-analytics.<tu-cuenta>.workers.dev
+# y en js/track.js + admin.html poné esa URL como BASE.

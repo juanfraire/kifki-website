@@ -145,6 +145,43 @@ em { font-style: italic; }
   transform: translateY(-2px);
 }
 
+.head-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 2vw, 1.1rem);
+}
+
+.head-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: var(--azul);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease;
+}
+
+.head-link:hover { color: var(--amarillo-2); }
+
+.soon-tag {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--azul);
+  background: color-mix(in srgb, var(--amarillo) 55%, transparent);
+  padding: 0.12rem 0.42rem;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+@media (max-width: 420px) {
+  .head-link { display: none; }
+}
+
 /* ---------- Escena 1 · Portada ---------- */
 
 .hero {
@@ -391,6 +428,188 @@ em { font-style: italic; }
   bottom: -60px; right: -140px;
 }
 
+/* ---------- Escena · Tienda online (próximamente) ---------- */
+
+.tienda {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 95% at 50% 8%, #fff7e2 0%, #fdf0d6 34%, var(--crema) 66%, var(--crema-osc) 100%);
+}
+
+.tienda::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 0; right: 0;
+  height: 70px;
+  background: var(--crema);
+  clip-path: ellipse(60% 100% at 50% 0%);
+}
+
+/* halo dorado que respira detrás del contenido */
+.tienda-glow {
+  position: absolute;
+  top: -8%;
+  left: 50%;
+  width: min(120vw, 900px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--amarillo) 40%, transparent) 0%, transparent 62%);
+  opacity: 0.7;
+  animation: tienda-breathe 7s ease-in-out infinite;
+}
+
+@keyframes tienda-breathe {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.55; }
+  50% { transform: translateX(-50%) scale(1.12); opacity: 0.8; }
+}
+
+.tienda-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(7rem, 16vh, 10rem) 1.5rem clamp(6rem, 14vh, 9rem);
+  text-align: center;
+}
+
+.proximamente {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--azul);
+  background: color-mix(in srgb, var(--amarillo) 32%, #fffdf8);
+  border: 1.5px solid color-mix(in srgb, var(--amarillo-2) 55%, transparent);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 26px -16px rgba(255, 173, 21, 0.7);
+  margin-bottom: 1.8rem;
+}
+
+.prox-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--amarillo-2);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--amarillo-2) 70%, transparent);
+  animation: prox-pulse 1.8s ease-out infinite;
+}
+
+@keyframes prox-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--amarillo-2) 65%, transparent); }
+  70% { box-shadow: 0 0 0 12px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.tienda-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  line-height: 1.12;
+  color: var(--azul);
+  margin-bottom: 1.4rem;
+}
+
+.tienda-title em {
+  font-family: var(--font-brush);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.16em;
+  color: var(--amarillo-2);
+  /* brillo que barre la palabra */
+  background: linear-gradient(100deg, var(--amarillo-2) 0%, #ffe08a 45%, var(--amarillo-2) 60%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: tienda-shimmer 4.5s linear infinite;
+}
+
+@keyframes tienda-shimmer {
+  to { background-position: -220% 0; }
+}
+
+.tienda-texto {
+  font-size: 1.1rem;
+  max-width: 34rem;
+  margin: 0 auto clamp(2.4rem, 6vh, 3.4rem);
+}
+
+/* estante flotante con lomos de libros */
+.estante {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 150px;
+  margin-bottom: clamp(2.4rem, 6vh, 3.4rem);
+}
+
+.libro {
+  display: block;
+  width: 30px;
+  border-radius: 4px 4px 2px 2px;
+  box-shadow: 0 12px 24px -14px rgba(41, 74, 145, 0.6);
+  transform-origin: bottom center;
+  animation: libro-float 4s ease-in-out infinite;
+}
+
+.libro--1 { height: 96px;  background: linear-gradient(160deg, var(--azul), #1c366e); animation-delay: 0s; }
+.libro--2 { height: 124px; background: linear-gradient(160deg, var(--amarillo), var(--amarillo-2)); animation-delay: 0.4s; }
+.libro--3 { height: 108px; background: linear-gradient(160deg, #e9603f, #c8452a); animation-delay: 0.8s; }
+.libro--4 { height: 132px; background: linear-gradient(160deg, #3f9d86, #2c7e6b); animation-delay: 1.2s; }
+.libro--5 { height: 100px; background: linear-gradient(160deg, var(--noche), var(--noche-2)); animation-delay: 1.6s; }
+
+.estante-tabla {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(90%, 260px);
+  height: 10px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--azul) 22%, transparent);
+  filter: blur(0.3px);
+}
+
+@keyframes libro-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-1.2deg); }
+}
+
+.btn-aviso {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--azul);
+  background: var(--amarillo);
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  box-shadow: 0 16px 32px -16px rgba(255, 173, 21, 0.75);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-aviso:hover {
+  background: var(--azul);
+  color: var(--crema);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 22px 40px -16px rgba(41, 74, 145, 0.6);
+}
+
+.tienda-nota {
+  margin-top: 1rem;
+  font-size: 0.92rem;
+  color: color-mix(in srgb, var(--tinta) 70%, transparent);
+}
+
 /* ---------- Escena 4 · Cita ---------- */
 
 .cita::before {
@@ -398,7 +617,7 @@ em { font-style: italic; }
   position: absolute;
   top: -1px; left: 0; right: 0;
   height: 70px;
-  background: var(--crema);
+  background: var(--crema-osc);
   clip-path: ellipse(60% 100% at 50% 0%);
 }
 
